@@ -36,3 +36,30 @@ minutes before the screening), the system should cancel the reservation.
 5. Reservation cancellation should happen in two cases:
     1. 15 minutes after the reservation is made,
     2. 15 minutes before the screening.
+### How to build and run?
+
+#### Requirements
+
+* Java 14
+* Maven
+
+#### Quickstart
+
+You can run the booking app by simply typing the following:
+
+Normal:
+```console
+$ ./mvnw spring-boot:run
+```
+
+With test data:
+```console
+$ ./mvnw spring-boot:run -Dspring.profiles.active=test_data
+```
+
+Run unit tests:
+```console
+$ ./mvnw test
+```
+
+Would you like to hire me?
