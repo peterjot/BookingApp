@@ -7,17 +7,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import pl.deadwood.bookingapp.confirmation.domain.ConfirmationTokenRepository;
 import pl.deadwood.bookingapp.confirmation.domain.Confirmations;
-import pl.deadwood.bookingapp.confirmation.infrastructure.InMemoryConfirmationTokenRepository;
+import pl.deadwood.bookingapp.confirmation.infrastructure.JpaConfirmationTokenRepository;
 import pl.deadwood.bookingapp.reservation.domain.Email;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import java.time.Clock;
 
 @Configuration
 public class ConfirmationConfig {
 
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
     @Bean
     ConfirmationTokenRepository reservationTokenRepository() {
-        return new InMemoryConfirmationTokenRepository();
+        return new JpaConfirmationTokenRepository(emf.createEntityManager());
     }
 
     @Bean

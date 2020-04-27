@@ -5,17 +5,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import pl.deadwood.bookingapp.reservation.domain.ReservationRepository;
 import pl.deadwood.bookingapp.reservation.domain.Reservations;
-import pl.deadwood.bookingapp.reservation.infrastructure.InMemoryReservationRepository;
+import pl.deadwood.bookingapp.reservation.infrastructure.JpaReservationRepository;
 import pl.deadwood.bookingapp.screening.domain.Screenings;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import java.time.Clock;
 
 @Configuration
 public class ReservationConfig {
 
+    @PersistenceUnit
+    EntityManagerFactory emf;
+
     @Bean
     ReservationRepository reservationRepository() {
-        return new InMemoryReservationRepository();
+        return new JpaReservationRepository(emf.createEntityManager());
     }
 
     @Bean
