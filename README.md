@@ -11,8 +11,8 @@ Business use case:
 5. The user chooses seats, and gives the information about the person doing the reservation
 6. The system gives back the total amount to pay and reservation expiration time.
 7. In the last step, in addition to the total amount and reservation expiration time, a
-confirmation link (let’s suppose this link would be sent by email in typical system)
-should also be given
+confirmation link
+should also be given (by email)
 8. User accesses the link to confirm reservation
 
 Assumptions:
@@ -43,6 +43,14 @@ minutes before the screening), the system should cancel the reservation.
 * Java 14
 * Maven
 
+### Database diagram
+![Database diagram](doc/database-entites.png)
+
+
+### Use case diagram
+![Drag Racing](doc/use-case-diagram.png)
+
+
 #### Quickstart
 
 You can run the booking app by simply typing the following:
@@ -61,5 +69,8 @@ Run unit tests:
 ```console
 $ ./mvnw test
 ```
+
+
+
 
 Would you like to hire me?
