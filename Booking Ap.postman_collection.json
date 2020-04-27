@@ -1,0 +1,395 @@
+{
+  "info": {
+    "_postman_id": "71d9c9f9-3987-402c-b6db-cca7f277c992",
+    "name": "Booking Ap",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Find screenings",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "35c5ef4a-a53e-47df-a320-78091cca0068",
+            "exec": [
+              "var data = JSON.parse(responseBody);",
+              "",
+              "let screeningId = data._embedded.availableScreeningList[1].id",
+              "",
+              "pm.environment.set(\"screeningId\", screeningId);",
+              "",
+              "tests[\"[INFO] Request: \" + JSON.stringify(request)] = true;",
+              "tests[\"[INFO] Response: \" + responseBody] = true;"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/pl.deadwood.v2+json",
+            "type": "text",
+            "disabled": true
+          },
+          {
+            "key": "",
+            "value": "application/pl.deadwood.v1+json",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/screenings?from=1990-01-01T01:01:01-03:00&to=2040-01-01T01:01:01-03:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "screenings"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1990-01-01T01:01:01-03:00"
+            },
+            {
+              "key": "to",
+              "value": "2040-01-01T01:01:01-03:00"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find all screenings",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "a65e5c80-64f7-492e-81e4-65bb05d283f4",
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/screenings",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "screenings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find screenings by id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "59c80e7b-4684-40c8-ba09-4dc0af515020",
+            "exec": [
+              "tests[\"[INFO] Request: \" + JSON.stringify(request)] = true;",
+              "tests[\"[INFO] Response: \" + responseBody] = true;"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/screenings/{{screeningId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "screenings",
+            "{{screeningId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Do Reservation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "67925364-5b40-419e-a1a3-1e1b5ef3df76",
+            "exec": [
+              "var data = JSON.parse(responseBody);",
+              "",
+              "let reservationId = data.reservationId",
+              "",
+              "pm.environment.set(\"reservationId\", reservationId);",
+              "",
+              "tests[\"[INFO] Request: \" + JSON.stringify(request)] = true;",
+              "tests[\"[INFO] Response: \" + responseBody] = true;"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n\t\"screeningId\":\"{{screeningId}}\",\r\n\t\"reservationSeats\":[{\"row\":1,\"column\":3,\"ticket\":\"ADULT\"}],\r\n\t\"name\":\"Piotrek\",\r\n\t\"surname\":\"Jot\",\r\n\t\"email\":null\r\n}\r\n"
+        },
+        "url": {
+          "raw": "http://localhost:8080/reservations/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find reservation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "021761d1-7169-4d97-825b-b149b0a61b7f",
+            "exec": [
+              "var data = JSON.parse(responseBody);",
+              "",
+              "let screeningId = data.screeningId;",
+              "",
+              "pm.environment.set(\"screeningId\", screeningId);",
+              "",
+              "tests[\"[INFO] Request: \" + JSON.stringify(request)] = true;",
+              "tests[\"[INFO] Response: \" + responseBody] = true;"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/reservations/{{reservationId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            "{{reservationId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find reservation email",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/reservations/{{reservationId}}/email",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            "{{reservationId}}",
+            "email"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find reservation name",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/reservations/{{reservationId}}/name",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            "{{reservationId}}",
+            "name"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find reservation status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/reservations/{{reservationId}}/status",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            "{{reservationId}}",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find reservation by screeningId",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/reservations/?screeningId={{screeningId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "reservations",
+            ""
+          ],
+          "query": [
+            {
+              "key": "screeningId",
+              "value": "{{screeningId}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Find confirmation by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/confirmations/{{confirmationTokenShouldBeSendByEmail}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "confirmations",
+            "{{confirmationTokenShouldBeSendByEmail}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update confirmation",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"token\": {{confirmationTokenShouldBeSendByEmail}},\r\n    \"reservationID\": \"12341234-3842-4170-964a-d5465c2e889f\",\r\n    \"expireTime\": \"2040-04-25T15:31:09.285287300Z\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/confirmations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "confirmations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update confirmation Copy",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/confirmations/{{confirmationTokenShouldBeSendByEmail}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "confirmations",
+            "{{confirmationTokenShouldBeSendByEmail}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
