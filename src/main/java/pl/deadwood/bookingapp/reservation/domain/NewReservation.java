@@ -7,7 +7,6 @@ import lombok.ToString;
 import pl.deadwood.bookingapp.reservation.domain.dto.ReservationCommand;
 
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,7 +29,7 @@ public class NewReservation {
                           @NonNull Email email,
                           @NonNull Instant expireTime) {
         this.screeningId = screeningId;
-        this.reservationSeats = new HashSet<>(reservationSeats);
+        this.reservationSeats = Set.copyOf(reservationSeats);
         this.name = name;
         this.surname = surname;
         this.email = email;

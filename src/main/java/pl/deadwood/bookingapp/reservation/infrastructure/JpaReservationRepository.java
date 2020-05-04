@@ -2,6 +2,7 @@ package pl.deadwood.bookingapp.reservation.infrastructure;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.stereotype.Repository;
 import pl.deadwood.bookingapp.reservation.domain.Name;
 import pl.deadwood.bookingapp.reservation.domain.NewReservation;
 import pl.deadwood.bookingapp.reservation.domain.Reservation;
@@ -9,8 +10,9 @@ import pl.deadwood.bookingapp.reservation.domain.ReservationRepository;
 import pl.deadwood.bookingapp.reservation.domain.Surname;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.RollbackException;
+import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -19,27 +21,31 @@ import java.util.UUID;
 
 import static pl.deadwood.bookingapp.reservation.infrastructure.ReservationEntity.toDomain;
 
+@Repository
 @AllArgsConstructor
 public class JpaReservationRepository implements ReservationRepository {
 
+    @PersistenceContext
     private final EntityManager em;
 
 
     @Override
+    @Transactional
     public Reservation save(@NonNull NewReservation newReservation) {
         var reservation = Reservation.of(newReservation);
         var entity = new ReservationEntity(reservation);
-        doInTransaction(() -> em.merge(entity));
-        return entity.toDomain();
+        return em.merge(entity).toDomain();
     }
 
     @Override
+    @Transactional
     public void update(@NonNull Reservation reservation) {
         var entity = new ReservationEntity(reservation);
-        doInTransaction(() -> em.merge(entity));
+        em.merge(entity);
     }
 
     @Override
+    @Transactional
     public void update(@NonNull Set<Reservation> reservations) {
         for (Reservation reservation : reservations) {
             update(reservation);
@@ -80,16 +86,5 @@ public class JpaReservationRepository implements ReservationRepository {
         query.setParameter("now", now);
         List<ReservationEntity> result = query.getResultList();
         return toDomain(result);
-    }
-
-
-    private void doInTransaction(Runnable runnable) {
-        em.getTransaction().begin();
-        try {
-            runnable.run();
-            em.getTransaction().commit();
-        } catch (RollbackException ex) {
-            em.getTransaction().rollback();
-        }
     }
 }

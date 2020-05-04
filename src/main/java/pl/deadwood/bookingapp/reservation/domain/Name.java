@@ -1,9 +1,13 @@
 package pl.deadwood.bookingapp.reservation.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Value
+@AllArgsConstructor(access = PRIVATE)
 public class Name {
 
     private static final String NAME_REGEX = "\\p{IsUppercase}\\p{IsLowercase}{2,}";
@@ -12,11 +16,11 @@ public class Name {
     String value;
 
 
-    public Name(@NonNull String value) {
-        this.value = getValidName(value);
+    public static Name of(@NonNull String value) {
+        return new Name(getValidName(value));
     }
 
-    private String getValidName(String name) {
+    private static String getValidName(String name) {
         if (!name.trim().matches(NAME_REGEX)) {
             throw new ReservationException("Wrong name format.");
         }

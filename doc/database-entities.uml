@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.CONFIRMATION_TOKEN_ENTITY</OriginalElement>
+  <nodes>
+    <node x="301.4627383015598" y="109.63951473136916">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.MOVIE_ENTITY</node>
+    <node x="205.7127383015598" y="258.63951473136916">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.SCREENING_ENTITY</node>
+    <node x="178.7127383015598" y="473.63951473136916">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.SCREENING_ENTITY_SEATS</node>
+    <node x="486.4627383015598" y="368.63951473136916">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.RESERVATION_ENTITY_RESERVATION_SEATS</node>
+    <node x="567.4627383015597" y="109.63951473136916">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.RESERVATION_ENTITY</node>
+    <node x="150.4627383015598" y="130.63951473136916">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.ROOM_ENTITY</node>
+    <node x="990.2547660311961" y="238.07279029462734">8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.CONFIRMATION_TOKEN_ENTITY</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.SCREENING_ENTITY" target="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.MOVIE_ENTITY">
+      <point x="44.0" y="-82.5" />
+      <point x="337.7127383015598" y="233.63951473136916" />
+      <point x="371.4627383015598" y="233.63951473136916" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.SCREENING_ENTITY_SEATS" target="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.SCREENING_ENTITY">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.RESERVATION_ENTITY_RESERVATION_SEATS" target="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.RESERVATION_ENTITY">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.SCREENING_ENTITY" target="8b42acd1-ca9c-428d-b7f7-26d0681ec3e7.TABLE:TESTDB.PUBLIC.ROOM_ENTITY">
+      <point x="-44.0" y="-82.5" />
+      <point x="249.7127383015598" y="233.63951473136916" />
+      <point x="215.9627383015598" y="233.63951473136916" />
+      <point x="0.0" y="28.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8573551263001485" x="706.9939341421143" y="374.3214904679376" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

@@ -16,9 +16,9 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
 import java.util.UUID;
 
+import static java.util.Collections.emptySet;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -124,11 +124,11 @@ public class ReservationsTest {
     @Test
     public void shouldThrowExceptionWhenSeatsListIsEmpty() {
         //given
-        var newReservation = new NewReservation(anyUuid(), new HashSet<>(), name("Piotrek"), surname("Jot"), email("rogue@wow.com"), Instant.now());
+
+        var newReservation = new NewReservation(anyUuid(), emptySet(), name("Piotrek"), surname("Jot"), email("rogue@wow.com"), Instant.now());
 
         //then
         expectedException.expect(ReservationException.class);
-        expectedException.expect(hasMessage("You have to book at least one seat, but got"));
 
         //when
         Reservation.of(newReservation);

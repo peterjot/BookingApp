@@ -57,33 +57,28 @@ public class ScreeningController {
     public ResponseEntity<EntityModel<ScreeningInfo>> findById(@PathVariable UUID id) {
         return screenings
                 .find(id)
-                .map(screeningInfo -> ok(EntityModel.of(screeningInfo, linkTo(methodOn(ScreeningController.class)
-                        .findById(id))
-                        .withSelfRel())))
+                .map(screeningInfo -> ok(EntityModel.of(screeningInfo,
+                        linkTo(methodOn(ScreeningController.class).findById(id)).withSelfRel()
+                )))
                 .orElse(notFound().build());
     }
 
     private Set<EntityModel<AvailableScreening>> findScreeningsByPeriod(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @RequestParam(value = "from", required = false) ZonedDateTime from, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @RequestParam(value = "to", required = false) ZonedDateTime to) {
-        Set<EntityModel<AvailableScreening>> availableScreenings;
-        availableScreenings =
-                screenings
-                        .find(from.toInstant(), to.toInstant())
-                        .stream()
-                        .map(availableScreening -> resourceWithLinkToScreeningSelf(
-                                availableScreening.getId(),
-                                availableScreening))
-                        .collect(toSortedByTitleAndStartTimeSet());
-        return availableScreenings;
-    }
-
-    private Set<EntityModel<AvailableScreening>> findAllScreenings() {
-        Set<EntityModel<AvailableScreening>> availableScreenings;
-        availableScreenings = screenings.findAll().stream()
+        return screenings
+                .find(from.toInstant(), to.toInstant())
+                .stream()
                 .map(availableScreening -> resourceWithLinkToScreeningSelf(
                         availableScreening.getId(),
                         availableScreening))
                 .collect(toSortedByTitleAndStartTimeSet());
-        return availableScreenings;
+    }
+
+    private Set<EntityModel<AvailableScreening>> findAllScreenings() {
+        return screenings.findAll().stream()
+                .map(availableScreening -> resourceWithLinkToScreeningSelf(
+                        availableScreening.getId(),
+                        availableScreening))
+                .collect(toSortedByTitleAndStartTimeSet());
     }
 
     private EntityModel<AvailableScreening> resourceWithLinkToScreeningSelf(UUID screeningId, AvailableScreening availableScreening) {

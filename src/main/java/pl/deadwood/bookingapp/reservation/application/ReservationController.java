@@ -40,9 +40,13 @@ class ReservationController {
     public ResponseEntity<EntityModel<CreatedReservation>> book(@Valid @RequestBody ReservationDto reservationDto) {
         CreatedReservation book = reservations.book(reservationDto.toReservationCommand());
 
-        return ok(EntityModel.of(book, linkTo(methodOn(ReservationController.class)
-                .book(reservationDto))
-                .withSelfRel()));
+        return ok(EntityModel.of(book,
+                linkTo(methodOn(ReservationCrudController.class).findById(book.getReservationId())).withSelfRel(),
+                linkTo(methodOn(ReservationCrudController.class).findEmailById(book.getReservationId())).withRel("email"),
+                linkTo(methodOn(ReservationCrudController.class).findNameById(book.getReservationId())).withRel("name"),
+                linkTo(methodOn(ReservationCrudController.class).findStatusById(book.getReservationId())).withRel("status")
+                )
+        );
     }
 
     @Value

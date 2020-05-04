@@ -5,7 +5,7 @@ import lombok.Value;
 
 import java.util.UUID;
 
-@Value
+@Value(staticConstructor = "of")
 public class Room {
 
     @NonNull

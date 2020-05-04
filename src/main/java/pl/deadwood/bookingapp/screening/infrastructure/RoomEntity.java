@@ -20,7 +20,7 @@ class RoomEntity {
     UUID id;
 
     Room toDomain() {
-        return new Room(id);
+        return Room.of(id);
     }
 
     RoomEntity(Room room) {

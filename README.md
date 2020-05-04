@@ -73,4 +73,4 @@ $ ./mvnw test
 
 
 
-Would you like to hire me?
+Hire me?

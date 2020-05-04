@@ -31,7 +31,7 @@ public class Confirmations {
 
 
     public void create(@NonNull UUID reservationId, @NonNull Email email, @NonNull String confirmationBaseUrl) {
-        var verificationToken = new ConfirmationToken(reservationId, Instant.now(clock));
+        var verificationToken = ConfirmationToken.of(reservationId, Instant.now(clock));
         confirmationTokenRepository.save(verificationToken);
 
         log.debug("Sending confirmation token([{}]) to: [{}]", verificationToken.getToken(), email);
@@ -55,7 +55,7 @@ public class Confirmations {
 
 
     private static String createEmailBody(String confirmationBaseUrl, UUID confirmationToken) {
-        String confirmationUrl = format(confirmationBaseUrl + "?token=%s", confirmationToken);
+        String confirmationUrl = format("%s?token=%s", confirmationBaseUrl, confirmationToken);
 
         return "<!DOCTYPE html>\n" +
                 "<head>\n" +

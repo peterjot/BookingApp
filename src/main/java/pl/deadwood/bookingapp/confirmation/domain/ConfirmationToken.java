@@ -19,7 +19,7 @@ public class ConfirmationToken {
     UUID reservationID;
     Instant expireTime;
 
-    ConfirmationToken(@NonNull UUID reservationID, @NonNull Instant now) {
+    private ConfirmationToken(UUID reservationID, Instant now) {
         this.token = UUID.randomUUID();
         this.reservationID = reservationID;
         this.expireTime = now.plus(MINUTES_TO_EXPIRE, ChronoUnit.MINUTES);
@@ -27,5 +27,9 @@ public class ConfirmationToken {
 
     boolean notExpired(@NonNull Instant now) {
         return now.isBefore(expireTime);
+    }
+
+    static ConfirmationToken of(@NonNull UUID reservationID, @NonNull Instant now) {
+        return new ConfirmationToken(reservationID, now);
     }
 }

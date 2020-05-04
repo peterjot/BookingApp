@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.deadwood.bookingapp.screening.domain.Seat;
-import pl.deadwood.bookingapp.screening.domain.SeatId;
 import pl.deadwood.bookingapp.screening.domain.SeatStatus;
 
 import javax.persistence.Embeddable;
@@ -13,7 +12,11 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toSet;
 
 @Embeddable
 @Getter
@@ -30,8 +33,7 @@ class SeatEntity implements Serializable {
     private SeatStatus status = SeatStatus.AVAILABLE;
 
     SeatEntity(Seat seat) {
-        SeatId seatId = seat.getSeatId();
-        this.seatId = new SeatIdEntity(seatId);
+        this.seatId = new SeatIdEntity(seat.getSeatId());
         this.status = seat.getStatus();
     }
 
@@ -56,5 +58,11 @@ class SeatEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(seatId);
+    }
+
+    public static Set<Seat> toDomain(Collection<SeatEntity> seats) {
+        return seats.stream()
+                .map(SeatEntity::toDomain)
+                .collect(toSet());
     }
 }

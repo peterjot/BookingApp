@@ -13,6 +13,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -36,7 +37,7 @@ public class ReservationEntity {
     @NotNull
     private UUID screeningId;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<ReservationSeatEntity> reservationSeats;
 
     @NotBlank
@@ -58,6 +59,7 @@ public class ReservationEntity {
 
 
     public ReservationEntity(Reservation reservation) {
+        this.id = reservation.getId();
         this.screeningId = reservation.getScreeningId();
         this.reservationSeats = reservation.getReservationSeats()
                 .stream()
@@ -71,7 +73,7 @@ public class ReservationEntity {
     }
 
     public Reservation toDomain() {
-        Set<ReservationSeat> reservationSeats = this.reservationSeats
+        Set<ReservationSeat> seats = this.reservationSeats
                 .stream()
                 .map(ReservationSeatEntity::toDomain)
                 .collect(toSet());
@@ -79,10 +81,10 @@ public class ReservationEntity {
         return new Reservation(
                 id,
                 screeningId,
-                reservationSeats,
-                new Name(name),
-                new Surname(surname),
-                new pl.deadwood.bookingapp.reservation.domain.Email(email),
+                seats,
+                Name.of(name),
+                Surname.of(surname),
+                pl.deadwood.bookingapp.reservation.domain.Email.of(email),
                 expireTime,
                 status
         );

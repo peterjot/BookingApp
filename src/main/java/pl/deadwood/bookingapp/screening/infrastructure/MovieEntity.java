@@ -24,6 +24,6 @@ class MovieEntity {
     }
 
     Movie toDomain() {
-        return new Movie(title);
+        return Movie.of(title);
     }
 }

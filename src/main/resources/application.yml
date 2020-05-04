@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+bookingapp:
+  email:
+    enabled: false
+    name: rejestracja.skrzat2@gmail.com
+    password: Krzysio123
+
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    password: ''
+    url: jdbc:h2:file:./testdb
+    username: sa
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    password: ${bookingapp.email.password}
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    username: ${bookingapp.email.name}
+
+logging:
+  level:
+    pl:
+      deadwood:
+        bookingapp:
+          '*': DEBUG

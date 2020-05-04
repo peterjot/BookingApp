@@ -20,12 +20,12 @@ public class EmailTest {
         expectedException.expect(hasMessage("Wrong email format"));
 
         // when
-        new Email("dsadsa");
+        Email.of("dsadsa");
     }
 
     @Test
     public void shouldNotThrowExceptionWhenEmailFormatIsCorrect() {
         // when
-        new Email("pdsad@wo.pl");
+        Email.of("pdsad@wo.pl");
     }
 }

@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.deadwood.bookingapp.screening.domain.Screening;
-import pl.deadwood.bookingapp.screening.domain.Seat;
 import pl.deadwood.bookingapp.screening.domain.dto.AvailableScreening;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
@@ -43,7 +43,7 @@ class ScreeningEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     private RoomEntity room;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<SeatEntity> seats;
 
     ScreeningEntity(Screening screening) {
@@ -57,8 +57,7 @@ class ScreeningEntity {
 
 
     Screening toDomain() {
-        Set<Seat> seats = this.seats.stream().map(SeatEntity::toDomain).collect(toSet());
-        return new Screening(id, movie.toDomain(), start, end, room.toDomain(), seats);
+        return new Screening(id, movie.toDomain(), start, end, room.toDomain(), SeatEntity.toDomain(this.seats));
     }
 
     AvailableScreening toAvailableDomain() {

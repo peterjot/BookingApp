@@ -15,7 +15,7 @@
             "exec": [
               "var data = JSON.parse(responseBody);",
               "",
-              "let screeningId = data._embedded.availableScreeningList[1].id",
+              "let screeningId = data.content[1].id",
               "",
               "pm.environment.set(\"screeningId\", screeningId);",
               "",
@@ -157,6 +157,9 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "noauth"
+        },
         "method": "POST",
         "header": [
           {
@@ -168,7 +171,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n\t\"screeningId\":\"{{screeningId}}\",\r\n\t\"reservationSeats\":[{\"row\":1,\"column\":3,\"ticket\":\"ADULT\"}],\r\n\t\"name\":\"Piotrek\",\r\n\t\"surname\":\"Jot\",\r\n\t\"email\":null\r\n}\r\n"
+          "raw": "{\r\n\t\"screeningId\":\"{{screeningId}}\",\r\n\t\"reservationSeats\":[{\"row\":1,\"column\":1,\"ticket\":\"ADULT\"}],\r\n\t\"name\":\"Piotrek\",\r\n\t\"surname\":\"Jot\",\r\n\t\"email\":\"piotrekjasina@gmail.com\"\r\n}\r\n"
         },
         "url": {
           "raw": "http://localhost:8080/reservations/",
@@ -319,7 +322,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:8080/confirmations/{{confirmationTokenShouldBeSendByEmail}}",
+          "raw": "http://localhost:8080/confirmations/{{confirmationTokenShouldBeSendByEmailCheckLogs}}",
           "protocol": "http",
           "host": [
             "localhost"
@@ -327,7 +330,7 @@
           "port": "8080",
           "path": [
             "confirmations",
-            "{{confirmationTokenShouldBeSendByEmail}}"
+            "{{confirmationTokenShouldBeSendByEmailCheckLogs}}"
           ]
         }
       },
@@ -340,7 +343,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"token\": {{confirmationTokenShouldBeSendByEmail}},\r\n    \"reservationID\": \"12341234-3842-4170-964a-d5465c2e889f\",\r\n    \"expireTime\": \"2040-04-25T15:31:09.285287300Z\"\r\n}",
+          "raw": "{\r\n    \"token\": {{confirmationTokenShouldBeSendByEmailCheckLogs}},\r\n    \"reservationID\": \"12341234-3842-4170-964a-d5465c2e889f\",\r\n    \"expireTime\": \"2040-04-25T15:31:09.285287300Z\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -376,7 +379,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:8080/confirmations/{{confirmationTokenShouldBeSendByEmail}}",
+          "raw": "http://localhost:8080/confirmations/{{confirmationTokenShouldBeSendByEmailCheckLogs}}",
           "protocol": "http",
           "host": [
             "localhost"
@@ -384,7 +387,7 @@
           "port": "8080",
           "path": [
             "confirmations",
-            "{{confirmationTokenShouldBeSendByEmail}}"
+            "{{confirmationTokenShouldBeSendByEmailCheckLogs}}"
           ]
         }
       },

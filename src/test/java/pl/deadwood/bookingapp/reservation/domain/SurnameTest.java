@@ -19,12 +19,12 @@ public class SurnameTest {
         expectedException.expect(hasMessage("Wrong surname format."));
 
         // when
-        new Surname("Ja");
+        Surname.of("Ja");
     }
 
     @Test
     public void shouldCreateSurnameWhenTwoPartsStartingWithCapitalLetter() {
-        new Surname("Jasina-Casio");
+        Surname.of("Jasina-Casio");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class SurnameTest {
         expectedException.expect(hasMessage("Wrong surname format."));
 
         // when
-        new Surname("jasina-Casio");
+        Surname.of("jasina-Casio");
     }
 
     @Test
@@ -44,11 +44,11 @@ public class SurnameTest {
         expectedException.expect(hasMessage("Wrong surname format."));
 
         // when
-        new Surname("Jasina-casio");
+        Surname.of("Jasina-casio");
     }
 
     @Test
     public void shouldCreateSurnameWhenGreaterThanTwoLetters() {
-        new Surname("Jasinaaaa");
+        Surname.of("Jasinaaaa");
     }
 }

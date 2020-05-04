@@ -19,12 +19,12 @@ public class NameTest {
         expectedException.expect(hasMessage("Wrong name format"));
 
         // when
-        new Name("Pi");
+        Name.of("Pi");
     }
 
     @Test
     public void shouldCreateNameWhenStartingWithCapitalLetter() {
-        new Name("Piotrek");
+        Name.of("Piotrek");
     }
 
     @Test
@@ -34,12 +34,12 @@ public class NameTest {
         expectedException.expect(hasMessage("Wrong name format"));
 
         // when
-        new Name("piotrek");
+        Name.of("piotrek");
     }
 
     @Test
     public void shouldCreateNameWhenHasMoreThanTwoLetters() {
         // when
-        new Surname("Piotrekkkkkkddddd");
+        Surname.of("Piotrekkkkkkddddd");
     }
 }

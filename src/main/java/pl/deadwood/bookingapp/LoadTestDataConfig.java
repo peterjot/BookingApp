@@ -23,11 +23,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import static java.util.Collections.singletonList;
 
 
 @Slf4j
@@ -41,7 +38,7 @@ public class LoadTestDataConfig {
     @Profile("test_data")
     CommandLineRunner loadData(ScreeningRepository screeningRepository, ReservationRepository reservationRepository) {
         return args -> {
-            log.debug("Loaded findAvailableScreenings data");
+            log.debug("Loaded screenings test data");
 
             // room 1
             Screening screening = screening(121231, movie1(), 80, room1());
@@ -63,10 +60,10 @@ public class LoadTestDataConfig {
             reservationRepository.save(
                     new NewReservation(
                             screening.getId(),
-                            new HashSet<>(singletonList(new ReservationSeat(SeatId.of(1, 2), Ticket.ADULT))),
-                            new Name("Piotrek"),
-                            new Surname("Jot"),
-                            new Email("piotrekjasina@gmail.com"),
+                            Set.of(new ReservationSeat(SeatId.of(1, 2), Ticket.ADULT)),
+                            Name.of("Piotrek"),
+                            Surname.of("Jot"),
+                            Email.of("piotrekjasina@gmail.com"),
                             Instant.now().minus(5, ChronoUnit.MINUTES)));
         };
     }
@@ -78,27 +75,27 @@ public class LoadTestDataConfig {
     }
 
     private Room room1() {
-        return new Room(UUID.fromString("bd4a5354-bd3e-11e9-9cb5-2a2ae2dbcce4"));
+        return Room.of(UUID.fromString("bd4a5354-bd3e-11e9-9cb5-2a2ae2dbcce4"));
     }
 
     private Room room2() {
-        return new Room(UUID.fromString("bd4a5638-bd3e-11e9-9cb5-2a2ae2dbcce4"));
+        return Room.of(UUID.fromString("bd4a5638-bd3e-11e9-9cb5-2a2ae2dbcce4"));
     }
 
     private Room room3() {
-        return new Room(UUID.fromString("bd4a57e6-bd3e-11e9-9cb5-2a2ae2dbcce4"));
+        return Room.of(UUID.fromString("bd4a57e6-bd3e-11e9-9cb5-2a2ae2dbcce4"));
     }
 
     private static Movie movie1() {
-        return new Movie("Ąbćdę");
+        return Movie.of("Ąbćdę");
     }
 
     private static Movie movie2() {
-        return new Movie("Ącćdęćźż");
+        return Movie.of("Ącćdęćźż");
     }
 
     private static Movie movie3() {
-        return new Movie("ĆaćaćĘę");
+        return Movie.of("ĆaćaćĘę");
     }
 
     private UUID anyId() {
@@ -106,19 +103,19 @@ public class LoadTestDataConfig {
     }
 
     private static Set<Seat> seats() {
-        var seats = new HashSet<Seat>();
-        seats.add(new Seat(SeatId.of(0, 0)));
-        seats.add(new Seat(SeatId.of(0, 1)));
-        seats.add(new Seat(SeatId.of(0, 2)));
-        seats.add(new Seat(SeatId.of(0, 3)));
-        seats.add(new Seat(SeatId.of(1, 0)));
-        seats.add(new Seat(SeatId.of(1, 1)));
-        seats.add(new Seat(SeatId.of(1, 2)));
-        seats.add(new Seat(SeatId.of(1, 3)));
-        seats.add(new Seat(SeatId.of(2, 0)));
-        seats.add(new Seat(SeatId.of(2, 1)));
-        seats.add(new Seat(SeatId.of(2, 2)));
-        seats.add(new Seat(SeatId.of(2, 3)));
-        return seats;
+        return Set.of(
+                new Seat(SeatId.of(0, 0)),
+                new Seat(SeatId.of(0, 1)),
+                new Seat(SeatId.of(0, 2)),
+                new Seat(SeatId.of(0, 3)),
+                new Seat(SeatId.of(1, 0)),
+                new Seat(SeatId.of(1, 1)),
+                new Seat(SeatId.of(1, 2)),
+                new Seat(SeatId.of(1, 3)),
+                new Seat(SeatId.of(2, 0)),
+                new Seat(SeatId.of(2, 1)),
+                new Seat(SeatId.of(2, 2)),
+                new Seat(SeatId.of(2, 3))
+        );
     }
 }

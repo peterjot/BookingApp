@@ -25,7 +25,7 @@ public class AvailableScreening {
 
     public AvailableScreening(@NonNull UUID id, String movieName, @NonNull Instant start) {
         this.id = id;
-        this.movie = new Movie(movieName);
+        this.movie = Movie.of(movieName);
         this.start = start;
     }
 

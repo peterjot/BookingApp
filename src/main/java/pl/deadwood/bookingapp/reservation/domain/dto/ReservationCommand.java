@@ -39,7 +39,7 @@ public class ReservationCommand {
                               String name,
                               String surname,
                               String email) {
-        this(screeningId, reservationSeats, new Name(name), new Surname(surname), new Email(email));
+        this(screeningId, reservationSeats, Name.of(name), Surname.of(surname), Email.of(email));
     }
 
     public Set<SeatId> getSeatIds() {

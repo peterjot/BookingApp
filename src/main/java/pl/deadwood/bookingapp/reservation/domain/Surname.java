@@ -1,9 +1,13 @@
 package pl.deadwood.bookingapp.reservation.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Value
+@AllArgsConstructor(access = PRIVATE)
 public class Surname {
 
     private static final String SINGLE_SURNAME_REGEXP = "\\p{IsUppercase}\\p{IsLowercase}{2,}";
@@ -12,11 +16,11 @@ public class Surname {
     @NonNull
     String value;
 
-    public Surname(@NonNull String value) {
-        this.value = getValidName(value);
+    public static Surname of(@NonNull String value) {
+        return new Surname(getValidName(value));
     }
 
-    private String getValidName(String name) {
+    private static String getValidName(String name) {
         if (!name.trim().matches(SURNAME_REGEXP)) {
             throw new ReservationException("Wrong surname format.");
         }

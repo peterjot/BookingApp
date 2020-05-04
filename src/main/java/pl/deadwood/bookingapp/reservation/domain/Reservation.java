@@ -9,7 +9,6 @@ import pl.deadwood.bookingapp.screening.domain.SeatId;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,6 +20,8 @@ import static java.util.stream.Collectors.toSet;
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 public class Reservation {
+
+    static final int MINIMUM_SEATS_COUNT = 1;
 
     @NonNull
     private final UUID id;
@@ -55,11 +56,11 @@ public class Reservation {
     }
 
     boolean notConfirmed() {
-        return !(Status.CONFIRMED == status);
+        return Status.CONFIRMED != status;
     }
 
     boolean notCanceled() {
-        return !(Status.CANCELED == status);
+        return Status.CANCELED != status;
 
     }
 
@@ -85,7 +86,7 @@ public class Reservation {
         UUID newId = UUID.randomUUID();
         return new Reservation(newId,
                 newReservation.getScreeningId(),
-                new HashSet<>(newReservation.getReservationSeats()),
+                Set.copyOf(newReservation.getReservationSeats()),
                 newReservation.getName(),
                 newReservation.getSurname(),
                 newReservation.getEmail(),
@@ -94,8 +95,8 @@ public class Reservation {
     }
 
     private static void checkMinimumSeatsNumber(Set<ReservationSeat> reservationSeats) {
-        if (reservationSeats.size() < 1) {
-            throw new ReservationException(format("You have to book at least one seat, but got [%d] seats", reservationSeats.size()));
+        if (reservationSeats.size() < MINIMUM_SEATS_COUNT) {
+            throw new ReservationException(format("You have to book at least [%d] seats, but got [%d] seats", MINIMUM_SEATS_COUNT, reservationSeats.size()));
         }
     }
 
